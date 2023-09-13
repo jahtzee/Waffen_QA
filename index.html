@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schnellverzeichnis Waffenrecht</title>
+    <style>
+        #search-input {
+            width: 90%;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+        #results {
+            list-style-type: none;
+        }
+        #results li {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Schnellverzeichnis Waffenrecht</h1>
+    <input type="text" id="search-input" placeholder="Suchbegriff">
+    <ul id="results">
+        <!-- List items will be populated here on page load -->
+    </ul>
+
+    <script>
+        // Function to filter subpages based on the search term
+        function filterPages() {
+            const searchTerm = document.getElementById('search-input').value.toLowerCase();
+            const resultsList = document.getElementById('results');
+            const pages = resultsList.getElementsByTagName('li');
+
+            for (let i = 0; i < pages.length; i++) {
+                const pageLink = pages[i].getElementsByTagName('a')[0];
+                const pageText = pageLink.textContent.toLowerCase();
+                if (pageText.includes(searchTerm)) {
+                    pages[i].style.display = 'list-item';
+                } else {
+                    pages[i].style.display = 'none';
+                }
+            }
+        }
+
+        // Function to populate the list with HTML files in a folder
+        function populateList() {
+            const resultsList = document.getElementById('results');
+
+            // Replace 'your-folder-path/' with the actual path to your HTML files
+            const folderPath = '';
+
+            // An array of HTML file names in the folder (you can fetch this dynamically)
+            const fileNames = [
+                'Darf ein Sportschütze von der Sportordnung abweichen.html',
+                'Pistole mit Anschlagschaft Disziplin.html'
+                ];
+
+            // Populate the list with links to the HTML files
+            for (const fileName of fileNames) {
+                const listItem = document.createElement('li');
+                const link = document.createElement('a');
+                link.href = folderPath + fileName;
+                link.textContent = fileName;
+                listItem.appendChild(link);
+                resultsList.appendChild(listItem);
+            }
+        }
+
+        // Call the populateList function on page load
+        window.addEventListener('load', populateList);
+
+        // Listen for changes in the search input
+        document.getElementById('search-input').addEventListener('input', filterPages);
+    </script>
+</body>
+</html>
